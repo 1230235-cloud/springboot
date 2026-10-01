@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiantes</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            margin: 2rem;
+            max-width: 900px;
+        }
+        h1 { font-size: 1.4rem; }
+        form {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        input {
+            padding: .45rem .6rem;
+            border: 1px solid #c8ccd4;
+            border-radius: 4px;
+        }
+        button {
+            padding: .45rem 1rem;
+            background: #2563eb;
+            color: #fff;
+            border: 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: .5rem;
+            border-bottom: 1px solid #e3e6ea;
+        }
+        th { background: #f4f6f8; }
+        .empty { color: #6b7280; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Registro de estudiantes</h1>
+
+    <form method="post" th:action="@{/students}">
+        <input type="text" name="name" placeholder="Nombre" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="matricula" placeholder="Matricula" required>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Matricula</th>
+                <th>Creado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(students)}">
+                <td colspan="5" class="empty">No hay estudiantes registrados.</td>
+            </tr>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.id}"></td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.email}"></td>
+                <td th:text="${student.matricula}"></td>
+                <td th:text="${#temporals.format(student.created, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

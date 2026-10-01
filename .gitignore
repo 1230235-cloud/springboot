@@ -1,0 +1,15 @@
+# Compilacion Java / Maven
+target/
+*.class
+*.jar
+*.war
+
+# IDEs y SO
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Entorno y logs
+*.log
+.env
